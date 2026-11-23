@@ -6,6 +6,9 @@ import com.mychess.pieces.PieceType;
 
 public class Board {
     private Piece[][] grid = new Piece[8][8];
+    public Board(){
+        setupInitialPosition();
+    }
 
     public void setupInitialPosition() {
         grid[0][0] = new Piece(PieceColor.BLACK, PieceType.ROOK);
