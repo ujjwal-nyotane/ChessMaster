@@ -1,6 +1,5 @@
 package com.mychess.gui;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -76,14 +75,15 @@ public class ChessBoard extends JPanel {
                 selectedCol=c;
                 squares[r][c].setSelectedSquare(true);
             }
-            else{
+            else if(board.isValidMove(selectedRow,selectedCol,r,c)){
                 squares[selectedRow][selectedCol].setSelectedSquare(false);
                 board.movePiece(selectedRow, selectedCol, r, c);
                 currentTurn = currentTurn.opposite();
                 selectedRow=-1;
                 selectedCol=-1;
                 updateBoard();
-            }
+                }
+            
         }
     }
 
