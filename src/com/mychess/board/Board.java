@@ -48,5 +48,14 @@ public class Board {
             grid[row][col]= piece;
         }
     }
+    public void movePiece(int fromrow,int fromcol,int torow,int tocol){
+        Piece piece = getPiece(fromrow, fromcol);
+        if(piece!=null){
+            setPiece(torow, tocol, piece);
+            setPiece(fromrow, fromcol, null);
+            piece.markMoved();
+        }
+
+    }
 
 }

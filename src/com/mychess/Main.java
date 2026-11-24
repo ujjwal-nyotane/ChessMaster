@@ -1,6 +1,5 @@
 package com.mychess;
 import javax.swing.SwingUtilities;
-import com.mychess.gui.ImageLoader;
 import com.mychess.gui.ChessFrame;
 public class Main {
 
