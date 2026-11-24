@@ -64,29 +64,78 @@ public class Board {
     public boolean isValidMove(int fromrow, int fromcol, int torow, int tocol) {
         Piece piece = getPiece(fromrow, fromcol);
         Piece targetPiece = getPiece(torow, tocol);
-        if(targetPiece!=null && piece.getcolor() == targetPiece.getcolor()) {
+        if (targetPiece != null && piece.getcolor() == targetPiece.getcolor()) {
             return false;
         }
 
         switch (piece.getType()) {
             case KNIGHT:
-                return isValidKnightMove(fromrow,fromcol,torow,tocol);
+                return isValidKnightMove(fromrow, fromcol, torow, tocol);
             case PAWN:
             case ROOK:
+                return isValidRookMove(fromrow, fromcol, torow, tocol);
             case BISHOP:
+                return isValidBishopMove(fromrow, fromcol, torow, tocol);
             case QUEEN:
+                return isValidQueenMove(fromrow, fromcol, torow, tocol);
             case KING:
-            case null,default:
+                return isValidKingMove(fromrow, fromcol, torow, tocol);
+            case null, default:
                 return false;
         }
 
     }
 
-    public boolean isValidKnightMove(int fromrow, int fromcol, int torow, int tocol) {
-        int rowdiff = Math.abs(fromrow-torow);
-        int coldiff =  Math.abs(fromcol-tocol);
-        if((rowdiff==1 && coldiff==2 ) || (rowdiff==2 && coldiff==1)) return true;
+    boolean isValidKnightMove(int fromrow, int fromcol, int torow, int tocol) {
+        int rowdiff = Math.abs(fromrow - torow);
+        int coldiff = Math.abs(fromcol - tocol);
+        if ((rowdiff == 1 && coldiff == 2) || (rowdiff == 2 && coldiff == 1))
+            return true;
         return false;
     }
+
+    boolean isPathClear(int fromrow,int fromcol, int torow,int tocol){
+        int rowdir= Integer.compare(torow, fromrow);
+        int coldir = Integer.compare(tocol, fromcol);
+        System.out.println(fromrow+" "+fromcol+" "+torow+" "+tocol);
+        System.out.println(rowdir+" "+coldir);
+        int currRow = fromrow+rowdir;
+        int currCol =fromcol+coldir;
+
+        while(currRow!=torow|| currCol!=tocol){
+            if(getPiece(currRow, currCol)!=null) return false;
+            currRow +=rowdir;
+            currCol +=coldir;
+        }
+
+        return true;
+
+    }
+    boolean isValidRookMove(int fromrow,int fromcol, int torow,int tocol){
+        if((fromrow==torow || fromcol==tocol)&& isPathClear(fromrow, fromcol, torow, tocol)){
+            return true;
+        }
+        return false;
+    }
+    boolean isValidBishopMove(int fromrow,int fromcol, int torow,int tocol){
+        if(Math.abs(torow-fromrow)==Math.abs(tocol-fromcol) && isPathClear(fromrow, fromcol, torow, tocol)){
+            return true;
+        }
+        return false;
+    }
+    boolean isValidQueenMove(int fromrow,int fromcol, int torow,int tocol){
+        if(isValidBishopMove(fromrow, fromcol, torow, tocol) || isValidRookMove(fromrow, fromcol, torow, tocol)){
+            return true;
+        }
+        return false;
+    }
+    boolean isValidKingMove(int fromrow,int fromcol, int torow,int tocol){
+        if(Math.abs(torow-fromrow)<=1 && Math.abs(tocol-fromcol)<=1){
+            return true;
+        }
+        return false;
+    }
+    
+
 
 }
