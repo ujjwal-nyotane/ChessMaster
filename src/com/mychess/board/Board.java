@@ -72,6 +72,7 @@ public class Board {
             case KNIGHT:
                 return isValidKnightMove(fromrow, fromcol, torow, tocol);
             case PAWN:
+                return isValidPawnMove(fromrow, fromcol, torow, tocol);
             case ROOK:
                 return isValidRookMove(fromrow, fromcol, torow, tocol);
             case BISHOP:
@@ -135,7 +136,21 @@ public class Board {
         }
         return false;
     }
-    
+    boolean isValidPawnMove(int fromrow,int fromcol, int torow,int tocol){
+        Piece piece = getPiece(fromrow, fromcol);
+        int direction = piece.getcolor()==PieceColor.WHITE?-1:1;
+        if(tocol==fromcol && torow == fromrow+direction && getPiece(torow, tocol)==null){
+            return true;
+        }
+        if(!piece.hasMoved() && tocol==fromcol && torow == fromrow+2*direction && getPiece(torow, tocol)==null){
+            return true;
+        }
+        if(Math.abs(tocol-fromcol)==1 && torow == fromrow+direction && getPiece(torow, tocol)!=null && getPiece(torow, tocol).getcolor()!=piece.getcolor()){
+            return true;
+        }
+
+        return false;
+    }
 
 
 }
