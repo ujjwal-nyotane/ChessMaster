@@ -1,0 +1,1 @@
+ChessMaster is a Java-based desktop application that provides an interactive chess-playing environment for two players. The application will implement standard chess rules, including piece movements, check, checkmate, castling, en passant, and pawn promotion. The system will be developed using Java Object-Oriented Programming (OOP) principles .
